@@ -514,6 +514,20 @@ class XHTMLStyle(AbstractStyle):
   <link rel="stylesheet" href="irclog.css" />
   <meta name="generator" content="irclog2html.py %(VERSION)s by Marius Gedminas" />
   <meta name="version" content="%(VERSION)s - %(RELEASE)s" />
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+ $(document).ready(function() {
+
+  
+ $('#slick-toggle').click(function() {
+   $('tr.join').toggle();
+   $('tr.part').toggle();
+   return;
+  });
+})
+</script>
 </head>
 <body>""" % {'VERSION': VERSION, 'RELEASE': RELEASE,
              'title': self.escape(title), 'charset': self.charset}
@@ -556,6 +570,7 @@ class XHTMLStyle(AbstractStyle):
         self.link(prev_url, prev_title)
         self.link(index_url, index_title)
         self.link(next_url, next_title)
+        print >> self.outfile, '<a href="#" id="slick-toggle">Toggle join/part msg</a>'
         print >> self.outfile, '</div>'
 
     def foot(self):
@@ -631,11 +646,11 @@ class XHTMLTableStyle(XHTMLStyle):
         text = createlinks(text)
         if time:
             displaytime = shorttime(time)
-            print >> self.outfile, ('<tr id="t%s">'
+            print >> self.outfile, ('<tr id="t%s" class="%s">'
                                     '<td class="%s" colspan="2">%s</td>'
                                     '<td><a href="%s#t%s" class="time">%s</a></td>'
                                     '</tr>'
-                                    % (time, self.CLASSMAP[what], text,
+                                    % (time, self.CLASSMAP[what], self.CLASSMAP[what], text,
                                        link, time, displaytime))
         else:
             print >> self.outfile, ('<tr>'
