@@ -524,6 +524,7 @@ class XHTMLStyle(AbstractStyle):
  $('#slick-toggle').click(function() {
    $('tr.join').toggle();
    $('tr.part').toggle();
+   $('tr.nickchange').toggle();
    return;
   });
 })
@@ -570,7 +571,7 @@ class XHTMLStyle(AbstractStyle):
         self.link(prev_url, prev_title)
         self.link(index_url, index_title)
         self.link(next_url, next_title)
-        print >> self.outfile, '<a href="#" id="slick-toggle">Toggle join/part msg</a>'
+        print >> self.outfile, '<a href="#" id="slick-toggle">Toggle join/part/nick msg</a>'
         print >> self.outfile, '</div>'
 
     def foot(self):
